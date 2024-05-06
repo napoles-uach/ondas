@@ -4,7 +4,22 @@ import plotly.graph_objects as go
 
 # Configuración de Streamlit
 st.title('Mapa de Contorno del Nivel Sonoro')
+st.sidebar.markdown('''
+Software didáctico diseñando
+por los profesores
+* D.C. José Manuel Nápoles Duarte
+* M.C. Carlos Armando de la Vega Cobos
 
+En apoyo a las materias:
+Física Básica II
+y
+Fenómenos Electroópticos
+
+de la Facultad de Ciencias Químicas
+de la Universidad Autónoma de Chihuahua
+''')
+
+st.sidebar.image('logofcq.png')
 # Parámetros para la simulación
 potencia = st.slider('Potencia de la fuente sonora (W)', min_value=0.1, max_value=10.0, value=1.0, step=0.1)
 max_distancia = st.slider('Máxima distancia de visualización (m)', min_value=10, max_value=100, value=50, step=10)
