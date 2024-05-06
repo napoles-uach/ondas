@@ -8,7 +8,7 @@ st.sidebar.markdown('''
 Software didáctico diseñando
 por los profesores
 * D.C. José Manuel Nápoles Duarte
-* M.C. Carlos Armando de la Vega Cobos
+* D.C. Juan Pedro Palomares Baez
 
 En apoyo a las materias:
 Física Básica II
