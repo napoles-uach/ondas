@@ -60,3 +60,17 @@ fig.update_layout(
     yaxis=dict(scaleanchor="x", scaleratio=1)
 )
 st.plotly_chart(fig, use_container_width=True)
+
+# Gráfica 1D del Nivel Sonoro vs. Radio
+radio = np.linspace(0.01, max_distancia, 400)
+intensidad_1d = potencia / (4 * np.pi * radio ** 2)
+nivel_sonoro_1d = 10 * np.log10(intensidad_1d / 1e-12)
+
+fig2 = go.Figure(data=go.Scatter(x=radio, y=nivel_sonoro_1d, mode='lines'))
+fig2.update_layout(
+    title='Nivel Sonoro vs. Radio',
+    xaxis_title='Radio (m)',
+    yaxis_title='Nivel Sonoro (dB)',
+    yaxis=dict(type='linear')
+)
+st.plotly_chart(fig2, use_container_width=True)
