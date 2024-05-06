@@ -3,6 +3,7 @@ import numpy as np
 import plotly.graph_objects as go
 
 # Configuración de Streamlit
+st.set_page_config(page_title=None, page_icon=None, layout="centered", initial_sidebar_state="None", menu_items=None)
 st.title('Mapa de Contorno del Nivel Sonoro')
 st.sidebar.markdown('''
 Software didáctico diseñando
