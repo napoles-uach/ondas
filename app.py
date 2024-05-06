@@ -39,7 +39,8 @@ fig = go.Figure(data=go.Contour(
 fig.update_layout(
     title='Mapa de Contorno del Nivel Sonoro',
     xaxis_title='Distancia en X (m)',
-    yaxis_title='Distancia en Y (m)'
+    yaxis_title='Distancia en Y (m)',
+    xaxis=dict(scaleanchor="y", scaleratio=1),  # Asegura la misma escala para ambos ejes
+    yaxis=dict(scaleanchor="x", scaleratio=1)
 )
 st.plotly_chart(fig, use_container_width=True)
-
