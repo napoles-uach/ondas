@@ -1,32 +1,35 @@
 import streamlit as st
 import numpy as np
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
 
 # Configuración de Streamlit
-st.title('Simulación de Onda en una Cuerda')
+st.title('Simulación de Ondas Acústicas')
 
 # Parámetros para la simulación
-tension = st.slider('Tensión de la cuerda (N)', min_value=10.0, max_value=1000.0, value=100.0, step=10.0)
-densidad = st.slider('Densidad lineal de la cuerda (kg/m)', min_value=0.01, max_value=0.1, value=0.05, step=0.01)
-frecuencia = st.slider('Frecuencia de vibración (Hz)', min_value=1.0, max_value=100.0, value=10.0, step=1.0)
+potencia = st.slider('Potencia de la fuente sonora (W)', min_value=0.1, max_value=10.0, value=1.0, step=0.1)
+distancia = st.slider('Distancia desde la fuente sonora (m)', min_value=1.0, max_value=100.0, value=10.0, step=1.0)
 
 # Constantes
-longitud = 1.0  # longitud de la cuerda en metros
+rho = 1.21  # Densidad del aire kg/m³
+c = 343  # Velocidad del sonido en aire m/s
 
-# Cálculo de la velocidad de la onda
-velocidad = np.sqrt(tension / densidad)
+# Cálculo de la Intensidad Sonora
+intensidad = potencia / (4 * np.pi * distancia ** 2)
 
-# Tiempo
-t = np.linspace(0, 2*np.pi, 400)
-x = np.linspace(0, longitud, 1000)
+# Cálculo del Nivel Sonoro (en decibelios)
+nivel_sonoro = 10 * np.log10(intensidad / 1e-12)
 
-# Función de onda
-onda = np.sin(2 * np.pi * frecuencia * (t[:, None] - x[None, :] / velocidad))
+# Crear gráficos con Plotly
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=[distancia], y=[intensidad], mode='markers', name='Intensidad'))
+fig.update_layout(
+    title='Intensidad Sonora en función de la Distancia',
+    xaxis_title='Distancia (m)',
+    yaxis_title='Intensidad (W/m²)',
+    xaxis=dict(range=[0, 100]),
+    yaxis=dict(type='log')
+)
+st.plotly_chart(fig, use_container_width=True)
 
-# Graficar la onda en un momento dado
-fig, ax = plt.subplots()
-ax.plot(x, onda[200, :], label=f'Velocidad de onda: {velocidad:.2f} m/s')
-ax.set_xlabel('Posición en la cuerda (m)')
-ax.set_ylabel('Amplitud de la onda')
-ax.legend()
-st.pyplot(fig)
+st.write(f'Nivel Sonoro: {nivel_sonoro:.2f} dB')
+
